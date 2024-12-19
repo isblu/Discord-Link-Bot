@@ -1,6 +1,5 @@
 import discord
-from discord.ext import commands, tasks
-from bs4 import BeautifulSoup
+from discord.ext import commands
 import requests
 
 # Replace with your bot token
@@ -80,7 +79,7 @@ def clear_storage():
     print("Cleared link storage for the next batch.")
 
 def identify_platform(message):
-    # Determine the platform based on the bot's name or message content
+    # Determine the platform based on the bot's name or message content (For now only youtube is used as others are hardcoded)
     if "Kick" in message.author.name or "kick" in message.content.lower():
         return "Kick"
     elif "Twitch" in message.author.name or "twitch" in message.content.lower():
@@ -97,30 +96,6 @@ def extract_link(message_content):
             return word
     return None
 
-def get_kick_title(stream_url):
-    try:
-        response = requests.get(stream_url, headers={"User-Agent": "Mozilla/5.0"})
-        if response.status_code == 200:
-            soup = BeautifulSoup(response.content, "html.parser")
-
-            # Try to find the title in multiple places
-            # 1. Look for meta tag (most common for titles)
-            title_tag = soup.find("meta", property="og:title")
-            if title_tag and "content" in title_tag.attrs:
-                return title_tag["content"]
-
-            # 2. Fall back to the <title> tag
-            title = soup.find("title")
-            if title:
-                return title.text.strip()
-
-            # 3. Fall back to specific Kick page structure (e.g., headings or other meta tags)
-            heading = soup.find("h1")  # Example: main heading
-            if heading:
-                return heading.text.strip()
-    except Exception as e:
-        print(f"Error fetching Kick title: {e}")
-    return "Title not found"
 
 def get_youtube_title(video_url):
     # Extract the video ID from the URL

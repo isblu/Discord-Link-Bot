@@ -64,12 +64,26 @@ Replace the placeholder usernames in `link_storage` with your own:
 - For Facebook: `https://web.facebook.com/your_user_name`
 
 ### 4. Running the Bot
+#### Option 1: Run with Python
+
 1. Save the file as `main.py`.
 2. Run the bot using:
-   ```
+   ```bash
    python main.py
    ```
 3. Ensure the bot is online and monitoring the source channel.
+
+#### Option 2: Run with a `.bat` File
+
+1. Create a `.bat` file (e.g., `linkbot.bat`) with the following content:
+   ```bat
+   @echo off
+   python "path_to_main.py"
+   pause
+   ```
+2. Replace `path_to_main.py` with the full path to your `main.py` file.
+3. Double-click the `.bat` file to run the bot like an application.
+
 
 ---
 
